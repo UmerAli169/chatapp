@@ -1,5 +1,7 @@
 const express = require("express");
 const authRoutes = require("./routes/auth.routes");
+const chatRoutes = require("./routes/chat.routes");
+
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -21,5 +23,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 100 }));
 app.use("/api/auth", authRoutes);
+app.use("/api/chat", chatRoutes);
+
 
 module.exports = app;
