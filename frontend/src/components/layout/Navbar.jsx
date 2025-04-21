@@ -15,10 +15,10 @@ const Navbar = () => {
     const fetchProfile = async () => {
       try {
         const res = await getUserProfile();
-        console.log(res,'respomce')
+        console.log(res,'omer')
         setUser(res.data.user);
       } catch (err) {
-        setUser(null); // Not logged in
+        setUser(null);
       }
     };
     fetchProfile();
@@ -29,7 +29,7 @@ const Navbar = () => {
       await logoutUser();
       toast.success("Logged out");
       setUser(null);
-      router.push("/login");
+      router.push("/Login");
     } catch (error) {
       toast.error("Logout failed");
     }
@@ -37,14 +37,30 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-      {/* Logo or App name */}
       <Link href="/" className="text-2xl font-bold text-blue-600">
         MyApp
       </Link>
 
-      {/* Links */}
       <div className="space-x-4 flex items-center">
-        {!user ? (
+        {user ? (
+          <>
+            <Link href="/(screen)/dashboard" className="text-gray-700 hover:text-blue-600">
+              Dashboard
+            </Link>
+            <Link href="/(screen)/chat" className="text-gray-700 hover:text-blue-600">
+              Chat
+            </Link>
+            <Link href="/(screen)/settings" className="text-gray-700 hover:text-blue-600">
+              Settings
+            </Link>
+            <span className="text-gray-600 text-sm">Hi, {user.username}</span>
+            <Button
+              label="Logout"
+              onClick={handleLogout}
+              className="!py-1 !px-3 text-sm bg-red-500 hover:bg-red-600"
+            />
+          </>
+        ) : (
           <>
             <Link href="/Login" className="text-gray-700 hover:text-blue-600">
               Login
@@ -52,15 +68,6 @@ const Navbar = () => {
             <Link href="/Register" className="text-gray-700 hover:text-blue-600">
               Register
             </Link>
-          </>
-        ) : (
-          <>
-            <span className="text-gray-600 text-sm">Hi, {user.username}</span>
-            <Button
-              label="Logout"
-              onClick={handleLogout}
-              className="!py-1 !px-3 text-sm bg-red-500 hover:bg-red-600"
-            />
           </>
         )}
       </div>

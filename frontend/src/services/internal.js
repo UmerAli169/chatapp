@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { getToken } from "../utils/auth/getToken";
 const API = "http://localhost:8000/api"; // your backend base URL
 
 // ✅ Create axios instance
@@ -21,7 +21,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         console.error("Token refresh failed");
-        window.location.href = "/login";
+        window.location.href = "/Login";
         return Promise.reject(refreshError);
       }
     }
@@ -41,8 +41,15 @@ export const googleLogin = () => {
   window.location.href = `${API}/auth/google`;
 };
 
-export const getUserProfile = () => api.get("/auth/me");
+export const getUserProfile = () => {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No token found");
+  }
+  return api.get("/auth/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
-// ✅ Chat APIs (add as needed)
-// export const getMessages = () => api.get("/chat/messages");
-// export const sendMessage = (msg) => api.post("/chat/send", { msg });

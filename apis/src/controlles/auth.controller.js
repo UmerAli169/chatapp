@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
   const refreshToken = jwtUtil.generateRefreshToken({ id: user._id });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
+    // httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
   const refreshToken = jwtUtil.generateRefreshToken({ id: user._id });
 
   res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
+    // httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
