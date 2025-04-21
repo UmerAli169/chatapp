@@ -1,6 +1,13 @@
 const express = require("express");
-const { authMiddleware } = require("../middleware/auth.middleware");
+const MessageController = require('../controlles/message.controller');
+const  authMiddleware  = require("../middleware/auth.middleware");
 const router = express.Router();
-router.post("/", authMiddleware);
-router.get("/:chatId", authMiddleware);
+router.post("/", authMiddleware,MessageController.sendMessage);
+router.get("/:chatId", authMiddleware,MessageController.getMessage);
+router.put('/seen/:messageId', authMiddleware, MessageController.markAsSeen);
+
+router.put('/edit/:messageId', authMiddleware, MessageController.editMessage);
+
+
 module.exports = router;
+ 

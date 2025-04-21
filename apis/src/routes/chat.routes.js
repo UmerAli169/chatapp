@@ -9,5 +9,7 @@ router.post('/group', auth, chatController.createGroupChat);
 router.put('/rename', auth, chatController.renameGroup);
 router.put('/groupadd', auth, chatController.addToGroup);
 router.put('/groupremove', auth, chatController.removeFromGroup);
+router.put('/pin', auth, chatController.pinMessage);
+
 
 module.exports = router;
