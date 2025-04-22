@@ -13,14 +13,16 @@ exports.register = async (req, res) => {
   const refreshToken = jwtUtil.generateRefreshToken({ id: user._id });
 
   res.cookie("refreshToken", refreshToken, {
-    // httpOnly: true,
+    httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+  res.cookie("accessToken", accessToken, {
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 5  * 1000, // 15 minutes
+  });
 
-  res
-    .status(201)
-    .json({ accessToken, user: { id: user._id, email, username } });
+  res.status(201).json({ user: { id: user._id, email, username } });
 };
 
 exports.login = async (req, res) => {
@@ -33,13 +35,16 @@ exports.login = async (req, res) => {
   const refreshToken = jwtUtil.generateRefreshToken({ id: user._id });
 
   res.cookie("refreshToken", refreshToken, {
-    // httpOnly: true,
+    httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
+  res.cookie("accessToken", accessToken, {
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 5  * 1000, // 15 minutes
+  });
 
   res.status(200).json({
-    accessToken,
     user: { id: user._id, email, username: user.username },
   });
 };
@@ -48,6 +53,7 @@ exports.logout = async (req, res) => {
   const token = req.cookies.refreshToken;
   if (token)
     await redis.set(`bl_${token}`, "blacklisted", "EX", 7 * 24 * 60 * 60);
+  res.clearCookie("accessToken");
   res.clearCookie("refreshToken");
   res.json({ message: "Logged out successfully" });
 };

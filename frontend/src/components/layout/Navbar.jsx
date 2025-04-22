@@ -1,37 +1,40 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import Button from "../shared/Button";
-import { getUserProfile, logoutUser } from "../../services/internal";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+"use client"
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import Button from '../shared/Button';
+import { getUserProfile, logoutUser } from '../../services/internal';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser, logoutUser as logoutAction } from '../../store/auth/userSlice';
+import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await getUserProfile();
-        console.log(res,'omer')
-        setUser(res.data.user);
+        dispatch(setUser(res.data.user));
       } catch (err) {
-        setUser(null);
+        dispatch(setUser(null));
       }
     };
-    fetchProfile();
-  }, []);
+  
+    if (!user) fetchProfile();
+  }, [user, dispatch]); 
+  
 
   const handleLogout = async () => {
     try {
-      await logoutUser();
-      toast.success("Logged out");
-      setUser(null);
-      router.push("/Login");
+ await logoutUser();
+      toast.success('Logged out');
+      dispatch(logoutAction());
+      router.push('/Login');
     } catch (error) {
-      toast.error("Logout failed");
+      toast.error('Logout failed');
     }
   };
 
@@ -44,20 +47,20 @@ const Navbar = () => {
       <div className="space-x-4 flex items-center">
         {user ? (
           <>
-            <Link href="/(screen)/dashboard" className="text-gray-700 hover:text-blue-600">
+            <Link href="/Dashboard" className="text-gray-700 hover:text-blue-600">
               Dashboard
             </Link>
-            <Link href="/(screen)/chat" className="text-gray-700 hover:text-blue-600">
+            <Link href="/Chat" className="text-gray-700 hover:text-blue-600">
               Chat
             </Link>
-            <Link href="/(screen)/settings" className="text-gray-700 hover:text-blue-600">
+            <Link href="/Settings" className="text-gray-700 hover:text-blue-600">
               Settings
             </Link>
             <span className="text-gray-600 text-sm">Hi, {user.username}</span>
             <Button
               label="Logout"
               onClick={handleLogout}
-              className="!py-1 !px-3 text-sm bg-red-500 hover:bg-red-600"
+              className="!py-1 !px-3 text-sm bg-red-500 hover:bg-blue-600"
             />
           </>
         ) : (

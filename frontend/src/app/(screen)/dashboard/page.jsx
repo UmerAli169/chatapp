@@ -1,4 +1,5 @@
+import Dashboard from "../../../views/dashboard/Dashboard";
+
 export default function DashboardPage() {
-    return <div className="text-xl font-bold">Dashboard</div>;
-  }
-  
+  return <Dashboard />;
+}

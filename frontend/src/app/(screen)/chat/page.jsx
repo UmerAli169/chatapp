@@ -1,8 +1,9 @@
-export default function ChatPage() {
-    return (
-      <div>
-        <h1 className="text-xl font-semibold">All Chats</h1>
-      </div>
-    );
-  }
-  
+"use client";
+import React from "react";
+import ChatLayout from "@/views/chat/ChatLayout";
+
+const ChatPage = () => {
+  return <ChatLayout />;
+};
+
+export default ChatPage;
