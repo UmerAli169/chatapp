@@ -10,7 +10,6 @@ const ChatLayout = () => {
   return (
     <div className="flex h-screen">
       <Sidebar />
-      {/* If no user selected, show placeholder */}
       {currentUser ? (
         <ChatWindow chatId={currentUser._id} />
       ) : (

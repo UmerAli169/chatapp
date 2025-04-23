@@ -1,9 +1,9 @@
+"use client"
 import React, { useState } from 'react';
 import { editMessage, deleteMessage, pinMessage } from '@/services/internal';
 import OnlineStatusDot from '@/components/shared/OnlineStatusDot';
 import Button from '@/components/shared/Button';
-import { FiEdit2, FiTrash2 } from 'react-icons/fi';
-import { FiPin } from 'react-icons/fi'; // Make sure this import is correct
+import { FiEdit2, FiTrash2, FiPin } from 'react-icons/fi';
 
 export default function MessageBubble({ message }) {
   const [editing, setEditing] = useState(false);
