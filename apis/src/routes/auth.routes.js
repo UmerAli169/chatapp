@@ -21,7 +21,7 @@ router.get("/me", auth, async (req, res) => {
 });
 
 router.get("/logout", logout);
-
+ 
 router.get("/refresh", async (req, res) => {
   const refreshToken = req.cookies.refreshToken;
 
@@ -48,16 +48,32 @@ router.get("/refresh", async (req, res) => {
     res.cookie("refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+  
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 15 * 60 * 1000, // 15 minutes
+    });
+  
     // Send new access token in response
-    res.status(200).json({ success: true, accessToken: newAccessToken });
+    res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
     return res
       .status(403)
       .json({ message: "Invalid or expired refresh token" });
+  }
+});
+// routes/userRoutes.js
+router.get('/', auth, async (req, res) => {
+  try {
+    const currentUserId = req.user.id; // assuming you're using JWT and authMiddleware
+    const users = await User.find({ _id: { $ne: currentUserId } }).select('-password');
+    res.status(200).json( users );
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch users' });
   }
 });
 

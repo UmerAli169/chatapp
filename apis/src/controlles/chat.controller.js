@@ -36,7 +36,9 @@ exports.accessChat = async (req, res) => {
   }
 };
 exports.pinMessage = async (req, res) => {
-  const { chatId, messageId } = req.body;
+  const {  messageId } = req.body;
+const chatId= req.params.chatId
+console.log(chatId,'umer',messageId)
 
   try {
     const chat = await Chat.findByIdAndUpdate(

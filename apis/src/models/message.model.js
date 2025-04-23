@@ -14,7 +14,7 @@ const messasgeSchemas = new mongoose.Schema(
         ref: "User",
       },
     ],
-    replaiedTo: {
+    repliedTo: {
       type: mongoose.Schema.Types.ObjectId,
       red: "Message",
     },

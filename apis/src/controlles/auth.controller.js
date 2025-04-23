@@ -18,8 +18,10 @@ exports.register = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+
     secure: process.env.NODE_ENV === "production",
-    maxAge: 5  * 1000, // 15 minutes
+    maxAge: 15 * 60 * 1000, // 15 minutes
   });
 
   res.status(201).json({ user: { id: user._id, email, username } });
@@ -40,8 +42,10 @@ exports.login = async (req, res) => {
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+
     secure: process.env.NODE_ENV === "production",
-    maxAge: 5  * 1000, // 15 minutes
+    maxAge: 15 * 60 * 1000, // 15 minutes
   });
 
   res.status(200).json({

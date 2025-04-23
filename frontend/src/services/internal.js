@@ -50,18 +50,16 @@ export const getUserProfile = async () => {
 };
 
 
+export const  fetchUsers=()=>api.get('/auth')
 
-export const fetchGroups = async () => {
-  const response = await api.get(`${API}/groups`);
-  return response.data;
-};
+export const sendMessage = (data) => api.post("/message", data);
+export const getMessages = (chatId) => api.get(`/message/${chatId}`);
+export const markAsSeen = (messageId) => api.put(`/message/seen/${messageId}`);
+export const pinMessage = (chatId, messageId) => 
+  api.put(`/chat/pin/${chatId}`, { messageId });
+export const deleteMessage = (messageId) => api.delete(`/message/delete/${messageId}`);
 
-export const fetchGroupMessages = async (groupId) => {
-  const response = await api.get(`${API}/groups/${groupId}/messages`);
-  return response.data;
-};
+export const editMessage = (messageId, newText) =>
+  api.put(`/message/edit/${messageId}`, { content: newText });
 
-export const sendGroupMessage = async (groupId, message) => {
-  const response = await api.post(`${API}/groups/${groupId}/messages`, { text: message });
-  return response.data;
-};
+

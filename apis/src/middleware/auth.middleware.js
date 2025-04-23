@@ -3,6 +3,7 @@ const redis = require("../config/redis");
 
 const authMiddleware = async (req, res, next) => {
   const token = req.cookies.accessToken;
+
   if (!token) return res.status(401).json({ message: "No token found" });
 
   const isBlacklisted = await redis.get(`bl_${token}`);
