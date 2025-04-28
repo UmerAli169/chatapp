@@ -1,0 +1,97 @@
+{
+    "users": [
+      {
+        "_id": "u1",
+        "username": "Alice"
+      },
+      {
+        "_id": "u2",
+        "username": "Bob"
+      },
+      {
+        "_id": "u3",
+        "username": "Charlie"
+      }
+    ],
+    "chats": [
+      {
+        "_id": "c1",
+        "isGroupChat": false,
+        "chatName": "Chat with Bob",
+        "users": ["u1", "u2"],
+        "latestMessage": "m2",
+        "groupAdmin": null,
+        "PinnedMessages": []
+      },
+      {
+        "_id": "c2",
+        "isGroupChat": true,
+        "chatName": "Team Devs",
+        "users": ["u1", "u2", "u3"],
+        "latestMessage": "m5",
+        "groupAdmin": "u1",
+        "PinnedMessages": ["m3"]
+      }
+    ],
+    "messages": [
+      {
+        "_id": "m1",
+        "sender": "u1",
+        "content": "Hey Bob!",
+        "chat": "c1",
+        "file": null,
+        "seenBy": ["u1"],
+        "repliedTo": null,
+        "edited": false,
+        "createdAt": "2024-04-01T10:00:00Z"
+      },
+      {
+        "_id": "m2",
+        "sender": "u2",
+        "content": "Hey Alice, how's it going?",
+        "chat": "c1",
+        "file": null,
+        "seenBy": ["u1", "u2"],
+        "repliedTo": "m1",
+        "edited": false,
+        "createdAt": "2024-04-01T10:01:00Z"
+      },
+      {
+        "_id": "m3",
+        "sender": "u3",
+        "content": "Don’t forget standup meeting at 11",
+        "chat": "c2",
+        "file": null,
+        "seenBy": ["u1", "u2"],
+        "repliedTo": null,
+        "edited": true,
+        "createdAt": "2024-04-01T09:00:00Z"
+      },
+      {
+        "_id": "m4",
+        "sender": "u2",
+        "content": "Noted, thanks!",
+        "chat": "c2",
+        "file": null,
+        "seenBy": ["u1", "u2", "u3"],
+        "repliedTo": "m3",
+        "edited": false,
+        "createdAt": "2024-04-01T09:05:00Z"
+      },
+      {
+        "_id": "m5",
+        "sender": "u1",
+        "content": "Let’s also plan for tomorrow’s sprint",
+        "chat": "c2",
+        "file": {
+          "url": "https://example.com/doc.pdf",
+          "type": "pdf"
+        },
+        "seenBy": [],
+        "repliedTo": null,
+        "edited": false,
+        "createdAt": "2024-04-01T09:10:00Z"
+      }
+    ]
+  }
+  

@@ -1,22 +1,21 @@
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import Input from "@/components/shared/Input";
 import Button from "@/components/shared/Button";
-import { loginUser } from "../../services/internal";
+import { loginUser, getUserProfile } from "@/services/internal";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import { useDispatch } from "react-redux"; // import dispatch
+import { setUser } from "../../store/auth/userSlice";
 const Login = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
+  const dispatch = useDispatch(); 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -25,8 +24,10 @@ const Login = () => {
     setLoading(true);
     try {
       await loginUser(formData);
+      const res = await getUserProfile();
+      dispatch(setUser(res.data.user));
       toast.success("Logged in successfully!");
-      router.push("/");
+      router.push("/"); 
     } catch (error) {
       toast.error(error?.response?.data?.message || "Login failed");
     } finally {
@@ -59,7 +60,7 @@ const Login = () => {
         </form>
         <p className="text-sm mt-5 text-center">
           Don't have an account?{" "}
-          <Link href="/Register" className="text-blue-600 hover:underline">
+          <Link href="/register" className="text-blue-600 hover:underline">
             Register here
           </Link>
         </p>

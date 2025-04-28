@@ -1,0 +1,26 @@
+{
+    "currentUser": {
+      "_id": "u1",
+      "name": "Hamza Bhai",
+      "email": "hamza@example.com"
+    },
+    "messages": [
+      {
+        "_id": "m1",
+        "sender": { "_id": "u1", "name": "Hamza Bhai" },
+        "content": "Hey, how are you?",
+        "chat": "c1",
+        "seenBy": ["u1", "u2"],
+        "createdAt": "2025-04-25T08:30:00Z"
+      },
+      {
+        "_id": "m2",
+        "sender": { "_id": "u2", "name": "Ali Bhai" },
+        "content": "I’m good! What about you?",
+        "chat": "c1",
+        "seenBy": ["u2"],
+        "createdAt": "2025-04-25T08:32:00Z"
+      }
+    ]
+  }
+  

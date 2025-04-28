@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/shared/Button.jsx", "src/views/auth/RegisterForm.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/shared/Button.jsx", "src/views/auth/RegisterForm.jsx", "src/app/(screen)/Chat/layout.tsx"],
   "exclude": ["node_modules"]
 }
